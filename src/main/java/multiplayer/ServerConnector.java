@@ -9,7 +9,7 @@ import java.nio.channels.*;
 import java.util.Iterator;
 import java.util.Set;
 
-public class Server implements Runnable {
+public class ServerConnector implements Runnable {
 
     private int port;
     private boolean running = false;
@@ -17,7 +17,7 @@ public class Server implements Runnable {
     private ServerSocket serverSocket;
     private ByteBuffer buffer;
 
-    public Server(int port, int bufferSize) {
+    public ServerConnector(int port, int bufferSize) {
         this.port = port;
         this.buffer = ByteBuffer.allocate(bufferSize);
     }
@@ -89,7 +89,7 @@ public class Server implements Runnable {
             selector = Selector.open();
 
             serverChannel.register(selector, SelectionKey.OP_ACCEPT);
-            System.out.println("Server Created on Port: " + port);
+            System.out.println("ServerConnector Created on Port: " + port);
         } catch (IOException e) {
             e.printStackTrace();
         }

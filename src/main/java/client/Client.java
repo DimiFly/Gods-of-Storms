@@ -1,5 +1,6 @@
 package client;
 
+import client.packets.AddPlayerPacket;
 import client.packets.RemovePlayerPacket;
 
 import java.io.*;
@@ -29,6 +30,8 @@ public class Client implements Runnable {
             out = new ObjectOutputStream(socket.getOutputStream());
             in = new ObjectInputStream(socket.getInputStream());
             listener = new EventListener();
+            AddPlayerPacket packet = new AddPlayerPacket();
+            sendObject(packet);
             new Thread(this).start();
         } catch (UnknownHostException e) {
             e.printStackTrace();
@@ -69,7 +72,7 @@ public class Client implements Runnable {
                     listener.receive(data);
                 } catch (SocketException e) {
                     close();
-                }catch (ClassNotFoundException e) {
+                } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
             }

@@ -1,16 +1,15 @@
 package main;
 
-import client.Client;
-import multiplayer.ServerConnector;
+import servertest.ClientTest;
+import servertest.ServerTest;
 
 public class Main {
 
     public static void main(String[] args) {
-        ServerConnector server = new ServerConnector(4200, 10);
-        Client client = new Client("192.168.106.199", 4200);
+        ServerTest serverTest = new ServerTest(4200);
+        ClientTest clientTest = new ClientTest(4200, "192.168.106.5");
 
-        server.start();
-
-        client.connect();
+        //serverTest.test();
+        clientTest.test();
     }
 }

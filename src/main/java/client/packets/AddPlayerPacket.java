@@ -9,4 +9,6 @@ public class AddPlayerPacket implements Serializable {
     public int id;
     public String name;
 
+
+
 }

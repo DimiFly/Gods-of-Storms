@@ -5,15 +5,13 @@ import java.util.ArrayList;
 public class PlayerData {
 
     private String name;
-    private int mana;
-    private int health;
+    private int hummus;
     private ArrayList<Card> deck;
     private ArrayList<Card> hand;
 
     public PlayerData(String name, ArrayList<Card> deck) {
         this.name = name;
-        this.mana = 1;
-        this.health = 30;
+        this.hummus = 1;
         this.deck = deck;
     }
 
@@ -25,20 +23,12 @@ public class PlayerData {
         this.name = name;
     }
 
-    public int getMana() {
-        return mana;
+    public int getHummus() {
+        return hummus;
     }
 
-    public void setMana(int mana) {
-        this.mana = mana;
-    }
-
-    public int getHealth() {
-        return health;
-    }
-
-    public void setHealth(int health) {
-        this.health = health;
+    public void setHummus(int hummus) {
+        this.hummus = hummus;
     }
 
     public ArrayList<Card> getDeck() {

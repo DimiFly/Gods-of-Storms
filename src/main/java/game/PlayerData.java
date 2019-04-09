@@ -1,8 +1,9 @@
 package game;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class PlayerData {
+public class PlayerData implements Serializable {
 
     private String name;
     private int hummus;

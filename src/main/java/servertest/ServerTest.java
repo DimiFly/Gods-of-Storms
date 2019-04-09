@@ -19,39 +19,17 @@ public class ServerTest implements Runnable {
         this.port = port;
         this.running = false;
         gameData = new GameData();
-        run();
-    }
-
-    public void test(ServerSocket serverSocket){
-        try {
-            Socket client = waitForConnection(serverSocket);
-            System.out.println(readMessage(client));
-            sendMessage(client, "Hey It's the server");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        start();
     }
 
     public Socket waitForConnection(ServerSocket serverSocket) {
         try {
             Socket socket = serverSocket.accept();
-            gameData.getPlayers().add(readData(socket));
-            System.out.println(readMessage(socket));
-            sendMessage(socket, "Connected to server");
+            PlayerData playerData = readData(socket);
+            System.out.println("Player connected: " + playerData.getName());
+            gameData.getPlayers().add(playerData);
+            sendData(socket, gameData);
             return socket;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public String readMessage(Socket socket) {
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            char[] buffer = new char[200];
-            int amoutChars = bufferedReader.read(buffer, 0, 200);
-            String message = new String(buffer, 0, amoutChars);
-            return message;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -68,12 +46,11 @@ public class ServerTest implements Runnable {
         return null;
     }
 
-    public void sendMessage(Socket socket, String message){
+    public void sendData(Socket socket, GameData gameData){
         try {
-            PrintWriter printWriter = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
-            printWriter.print(message);
-            printWriter.flush();
-        } catch (IOException e) {
+            ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
+            outputStream.writeObject(gameData);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -96,5 +73,9 @@ public class ServerTest implements Runnable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void start(){
+        run();
     }
 }

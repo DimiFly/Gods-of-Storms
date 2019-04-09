@@ -1,8 +1,9 @@
 package game;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class GameData {
+public class GameData implements Serializable {
 
     private ArrayList<PlayerData> players;
     private ArrayList<Card> allCards;

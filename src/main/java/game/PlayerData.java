@@ -12,8 +12,8 @@ public class PlayerData {
     public PlayerData(String name) {
         this.name = name;
         this.hummus = 1;
-        this.deck = new ArrayList<>();
-        this.hand = new ArrayList<>();
+        this.deck = new ArrayList<Card>();
+        this.hand = new ArrayList<Card>();
     }
 
     public String getName() {

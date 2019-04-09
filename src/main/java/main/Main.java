@@ -9,7 +9,7 @@ public class Main {
         ServerTest serverTest = new ServerTest(4200);
         //ClientTest clientTest = new ClientTest(4200, "192.168.106.5");
 
-        serverTest.test();
+        //serverTest.test();
         //clientTest.test();
     }
 }

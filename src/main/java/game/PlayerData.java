@@ -9,10 +9,11 @@ public class PlayerData {
     private ArrayList<Card> deck;
     private ArrayList<Card> hand;
 
-    public PlayerData(String name, ArrayList<Card> deck) {
+    public PlayerData(String name) {
         this.name = name;
         this.hummus = 1;
-        this.deck = deck;
+        this.deck = new ArrayList<>();
+        this.hand = new ArrayList<>();
     }
 
     public String getName() {

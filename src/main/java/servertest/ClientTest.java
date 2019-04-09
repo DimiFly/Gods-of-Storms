@@ -1,5 +1,7 @@
 package servertest;
 
+import game.PlayerData;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -7,28 +9,30 @@ public class ClientTest {
 
     private int port;
     private String host;
+    private PlayerData playerData;
 
-    public ClientTest(int port, String host) {
+    public ClientTest(int port, String host, String name) {
         this.port = port;
         this.host = host;
+        playerData = new PlayerData(name);
     }
 
     public void test() {
         try {
             Socket socket = new Socket(host, port);
-            String message = "Hello there, I'm the client";
-            sendMessage(socket, message);
+            String message = "Hello there, I'm " + playerData.getName();
+            sendPlayerData(socket, playerData);
             System.out.println(readMessage(socket));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void sendMessage(Socket socket, String message){
+    public void sendPlayerData(Socket socket, PlayerData playerData){
         try {
-            PrintWriter printWriter = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
-            printWriter.print(message);
-            printWriter.flush();
+            ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
+            outputStream.writeObject(playerData);
+            outputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

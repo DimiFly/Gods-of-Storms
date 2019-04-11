@@ -9,6 +9,7 @@ public class PlayerData implements Serializable {
     private int hummus;
     private ArrayList<Card> deck;
     private ArrayList<Card> hand;
+    private PlayerData opponent;
 
     public PlayerData(String name) {
         this.name = name;
@@ -47,5 +48,13 @@ public class PlayerData implements Serializable {
 
     public void setHand(ArrayList<Card> hand) {
         this.hand = hand;
+    }
+
+    public PlayerData getOpponent() {
+        return opponent;
+    }
+
+    public void setOpponent(PlayerData opponent) {
+        this.opponent = opponent;
     }
 }

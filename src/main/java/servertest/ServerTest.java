@@ -68,7 +68,17 @@ public class ServerTest implements Runnable {
             players = new ArrayList<Socket>();
             System.out.println("in run");
             while (running) {
-                players.add(waitForConnection(serverSocket));
+                if(gameData.getPlayers().size() < 2) {
+                    players.add(waitForConnection(serverSocket));
+                }
+                if(gameData.getPlayers().size() == 2){
+                    gameData.getPlayers().get(0).setOpponent(gameData.getPlayers().get(1));
+                    gameData.getPlayers().get(1).setOpponent(gameData.getPlayers().get(0));
+                    readData(players.get(0));
+                    readData(players.get(1));
+                    sendData(players.get(0), gameData);
+                    sendData(players.get(1), gameData);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

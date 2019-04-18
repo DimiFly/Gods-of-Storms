@@ -1,0 +1,17 @@
+.textfield{
+    -fx-background-radius: 3px;
+    -fx-background-color: white;
+    -fx-border-radius: 3px;
+    -fx-border-color: #555555;
+}
+.button{
+    -fx-background-radius: 3px;
+    -fx-background-color: #BB0000;
+    -fx-border-radius: 3px;
+    -fx-border-color: #555555;
+    -fx-text-fill: white;
+}
+.button:hover{
+    -fx-text-fill: yellow;
+    -fx-effect: glow;
+}

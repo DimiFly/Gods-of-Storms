@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Label text="Menu" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+         <font>
+            <Font name="Baskerville Old Face" size="40.0" />
+         </font>
+         <GridPane.margin>
+            <Insets top="10.0" />
+         </GridPane.margin>
+      </Label>
+      <TextField id="textfield" styleClass="textfield" stylesheets="@menu_stylesheet.css" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <font>
+            <Font name="Baskerville Old Face" size="16.0" />
+         </font>
+      </TextField>
+      <Label text="Port:" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+         <font>
+            <Font name="Baskerville Old Face" size="20.0" />
+         </font>
+         <GridPane.margin>
+            <Insets right="20.0" />
+         </GridPane.margin>
+      </Label>
+      <TextField id="textfield" styleClass="textfield" stylesheets="@menu_stylesheet.css" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <font>
+            <Font name="Baskerville Old Face" size="16.0" />
+         </font>
+      </TextField>
+      <Label text="Server IP:" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+         <font>
+            <Font name="Baskerville Old Face" size="20.0" />
+         </font>
+         <GridPane.margin>
+            <Insets right="20.0" />
+         </GridPane.margin>
+      </Label>
+      <TextField id="textfield" styleClass="textfield" stylesheets="@menu_stylesheet.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <font>
+            <Font name="Baskerville Old Face" size="16.0" />
+         </font>
+      </TextField>
+      <Label text="Username:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+         <font>
+            <Font name="Baskerville Old Face" size="20.0" />
+         </font>
+         <GridPane.margin>
+            <Insets right="20.0" />
+         </GridPane.margin>
+      </Label>
+      <Button id="button" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" stylesheets="@menu_stylesheet.css" text="Play" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+         <font>
+            <Font name="Baskerville Old Face" size="20.0" />
+         </font>
+      </Button>
+   </children>
+</GridPane>

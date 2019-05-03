@@ -11,13 +11,14 @@ import java.util.ArrayList;
 public class ServerTest implements Runnable {
 
     private int port;
-    private boolean running;
+    private boolean running, gameStarted;
     private ArrayList<Socket> players;
     private GameData gameData;
 
     public ServerTest(int port){
         this.port = port;
         this.running = false;
+        this.gameStarted = false;
         gameData = new GameData();
         start();
     }
@@ -66,18 +67,32 @@ public class ServerTest implements Runnable {
         try {
             ServerSocket serverSocket = new ServerSocket(port);
             players = new ArrayList<Socket>();
-            System.out.println("in run");
             while (running) {
-                if(gameData.getPlayers().size() < 2) {
-                    players.add(waitForConnection(serverSocket));
-                }
-                if(gameData.getPlayers().size() == 2){
-                    gameData.getPlayers().get(0).setOpponent(gameData.getPlayers().get(1));
-                    gameData.getPlayers().get(1).setOpponent(gameData.getPlayers().get(0));
+                if(!gameStarted) {
+                    if (gameData.getPlayers().size() < 2) {
+                        players.add(waitForConnection(serverSocket));
+                    }
+                    if (gameData.getPlayers().size() == 2) {
+                        gameData.drawCards();
+                        gameData.getPlayers().get(0).setOpponent(gameData.getPlayers().get(1));
+                        gameData.getPlayers().get(1).setOpponent(gameData.getPlayers().get(0));
+                        readData(players.get(0));
+                        readData(players.get(1));
+                        sendData(players.get(0), gameData);
+                        sendData(players.get(1), gameData);
+                        gameStarted = true;
+                    }
+                } else {
                     readData(players.get(0));
                     readData(players.get(1));
-                    sendData(players.get(0), gameData);
-                    sendData(players.get(1), gameData);
+                    System.out.println(gameData.getPlayers().get(0).getName() + "'s cards: ");
+                    for (int i = 0; i < gameData.getPlayers().get(0).getDeck().size(); i++) {
+                        System.out.println(gameData.getPlayers().get(0).getDeck().get(i).getName());
+                    }
+                    System.out.println(gameData.getPlayers().get(1).getName() + "'s cards: ");
+                    for (int i = 0; i < gameData.getPlayers().get(1).getDeck().size(); i++) {
+                        System.out.println(gameData.getPlayers().get(1).getDeck().get(i).getName());
+                    }
                 }
             }
         } catch (Exception e) {

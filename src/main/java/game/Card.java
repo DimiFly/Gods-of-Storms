@@ -4,26 +4,18 @@ import java.io.Serializable;
 
 public class Card implements Serializable {
 
-    private int id;
     private String name;
     private int cost;
     private int health;
     private int damage;
+    private boolean inUse;
 
-    public Card(int id, String name, int cost, int health, int damage) {
-        this.id = id;
+    public Card(String name, int cost, int health, int damage) {
         this.name = name;
         this.cost = cost;
         this.health = health;
         this.damage = damage;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+        this.inUse = false;
     }
 
     public String getName() {
@@ -56,5 +48,13 @@ public class Card implements Serializable {
 
     public void setDamage(int damage) {
         this.damage = damage;
+    }
+
+    public boolean isInUse() {
+        return inUse;
+    }
+
+    public void setInUse(boolean inUse) {
+        this.inUse = inUse;
     }
 }

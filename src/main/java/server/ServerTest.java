@@ -1,4 +1,4 @@
-package servertest;
+package server;
 
 import game.GameData;
 import game.PlayerData;

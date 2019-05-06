@@ -5,8 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import servertest.ClientTest;
-import servertest.ServerTest;
+import client.ClientTest;
 
 import java.io.IOException;
 import java.net.URL;
@@ -25,13 +24,13 @@ public class Main extends Application {
     }
     public static void main(String[] args) {
         //ServerTest serverTest = new ServerTest(4200);
-        ClientTest clientTest = new ClientTest(4200, "localhost", "Grom1");
-        //launch(args);
+        //ClientTest clientTest = new ClientTest(4200, "localhost", "Grom1");
+        launch(args);
         /*ServerTest serverTest = new ServerTest(4200);
         ClientTest clientTest = new ClientTest(4200, "192.168.107.109", "Grom1");
 
         clientTest.connectToServer();
         /serverTest.test();*/
-        clientTest.connectToServer();
+        //clientTest.connectToServer();
     }
 }

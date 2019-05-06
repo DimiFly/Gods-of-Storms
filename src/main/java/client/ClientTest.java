@@ -1,4 +1,4 @@
-package servertest;
+package client;
 
 import game.GameData;
 import game.PlayerData;
@@ -76,7 +76,6 @@ public class ClientTest implements Runnable{
     public void run() {
         connectToServer();
         while (true){
-            System.out.println("1234");
             sendPlayerData(socket, playerData);
             readGameData(socket);
         }

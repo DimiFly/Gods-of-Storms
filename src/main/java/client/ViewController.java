@@ -47,11 +47,11 @@ public class ViewController implements Initializable {
                 stage.initStyle(StageStyle.UNDECORATED);
                 stage.show();
                 ((Node) (e.getSource())).getScene().getWindow().hide();
-                client = new ClientTest(Integer.parseInt(port.getText()), ip.getText(), username.getText());
-                myName.setText(client.getPlayerData().getName());
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
+            client = new ClientTest(Integer.parseInt(port.getText()), ip.getText(), username.getText());
+            myName.setText(client.getPlayerData().getName());
         }
     }
 

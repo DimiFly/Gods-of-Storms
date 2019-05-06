@@ -38,7 +38,7 @@ public class ViewController implements Initializable {
     @FXML
     public void handlePlayAction(ActionEvent e) {
         if(!username.equals(null) && !port.equals(null) && !port.equals(null)) {
-            openGameStage(e);
+            ((Node) (e.getSource())).getScene().getWindow().hide();
             try {
                 TimeUnit.SECONDS.sleep(15);
             } catch (InterruptedException ex) {
@@ -54,7 +54,7 @@ public class ViewController implements Initializable {
         }
     }
 
-    public void openGameStage(ActionEvent e){
+    public void openGameStage(){
         Parent root = null;
         Stage stage = new Stage();
         try {
@@ -64,7 +64,6 @@ public class ViewController implements Initializable {
             stage.setResizable(false);
             stage.initStyle(StageStyle.UNDECORATED);
             stage.show();
-            ((Node) (e.getSource())).getScene().getWindow().hide();
         } catch (IOException e1) {
             e1.printStackTrace();
         }
@@ -72,6 +71,6 @@ public class ViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        //openGameStage();
     }
 }

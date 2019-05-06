@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import client.ClientTest;
+import javafx.stage.StageStyle;
 import server.ServerTest;
 
 import java.io.IOException;
@@ -21,6 +22,16 @@ public class Main extends Application {
         primaryStage.setResizable(false);
         //primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.show();
+
+
+        Stage stage = new Stage();
+        Parent anotherRoot = FXMLLoader.load(getClass().getResource("/Game.fxml"));
+        stage.setTitle("Gods of Storms");
+        stage.setScene(new Scene(anotherRoot));
+        stage.setResizable(false);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.show();
+
     }
     public static void main(String[] args) {
         //ServerTest serverTest = new ServerTest(4200);

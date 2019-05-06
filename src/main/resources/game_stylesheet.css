@@ -1,0 +1,11 @@
+#myName{
+    -fx-border-width: 3px;
+    -fx-border-color: #AA0000;
+    -fx-border-style: solid solid solid solid;
+}
+
+#enemy{
+    -fx-border-width: 3px;
+    -fx-border-color: #AA0000;
+    -fx-border-style: none solid solid solid;
+}

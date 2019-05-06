@@ -20,7 +20,7 @@ public class Main extends Application {
         primaryStage.setTitle("Gods of Storms");
         primaryStage.setScene(new Scene(root));
         primaryStage.setResizable(false);
-        //primaryStage.initStyle(StageStyle.UNDECORATED);
+        primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.show();
     }
     public static void main(String[] args) {

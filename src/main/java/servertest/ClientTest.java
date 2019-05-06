@@ -14,13 +14,11 @@ public class ClientTest implements Runnable{
     private PlayerData playerData;
     private GameData gameData;
     private Socket socket;
-    private boolean running;
 
     public ClientTest(int port, String host, String name) {
         this.port = port;
         this.host = host;
         playerData = new PlayerData(name);
-        running = false;
         run();
     }
 
@@ -38,7 +36,6 @@ public class ClientTest implements Runnable{
 
     public void disconnectFromServer(){
         try {
-            running = false;
             socket.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -77,9 +74,9 @@ public class ClientTest implements Runnable{
 
     @Override
     public void run() {
-        running = true;
         connectToServer();
-        while (running){
+        while (true){
+            System.out.println("1234");
             sendPlayerData(socket, playerData);
             readGameData(socket);
         }

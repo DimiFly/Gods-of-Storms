@@ -2,6 +2,7 @@ package game;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class PlayerData implements Serializable {
 
@@ -18,6 +19,18 @@ public class PlayerData implements Serializable {
         this.deck = new ArrayList<Card>();
         this.hand = new ArrayList<Card>();
         this.playedCards = new ArrayList<Card>();
+    }
+
+    public void pullCard() {
+        Random r = new Random();
+        int index = r.nextInt(deck.size());
+        hand.add(deck.get(index));
+        deck.remove(index);
+    }
+
+    public void playCard(Card card) {
+        playedCards.add(card);
+        hand.remove(card);
     }
 
     public String getName() {

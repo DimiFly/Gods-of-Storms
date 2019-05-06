@@ -25,13 +25,13 @@ public class Main extends Application {
     }
     public static void main(String[] args) {
         //ServerTest serverTest = new ServerTest(4200);
-        ClientTest clientTest = new ClientTest(4200, "localhost", "Grom2");
-        launch(args);
+        ClientTest clientTest = new ClientTest(4200, "localhost", "Grom1");
+        //launch(args);
         /*ServerTest serverTest = new ServerTest(4200);
         ClientTest clientTest = new ClientTest(4200, "192.168.107.109", "Grom1");
 
         clientTest.connectToServer();
-        /serverTest.test();
-        clientTest.connectToServer();*/
+        /serverTest.test();*/
+        clientTest.connectToServer();
     }
 }

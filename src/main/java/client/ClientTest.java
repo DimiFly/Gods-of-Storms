@@ -14,19 +14,25 @@ public class ClientTest implements Runnable{
     private PlayerData playerData;
     private GameData gameData;
     private Socket socket;
+    private boolean running;
 
     public ClientTest(int port, String host, String name) {
         this.port = port;
         this.host = host;
         playerData = new PlayerData(name);
+        running = false;
         run();
     }
 
     public void connectToServer(){
         try {
+            System.out.println(4);
             socket = new Socket(host, port);
+            System.out.println(5);
             sendPlayerData(socket, playerData);
+            System.out.println(6);
             readGameData(socket);
+            System.out.println(7);
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -114,10 +120,13 @@ public class ClientTest implements Runnable{
 
     @Override
     public void run() {
+        running = true;
         connectToServer();
-        while (true){
+        while (running){
             sendPlayerData(socket, playerData);
+            System.out.println(8);
             readGameData(socket);
+            System.out.println(9);
         }
     }
 }

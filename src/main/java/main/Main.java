@@ -23,9 +23,9 @@ public class Main extends Application {
         primaryStage.show();
     }
     public static void main(String[] args) {
-        ServerTest serverTest = new ServerTest(4200);
+        //ServerTest serverTest = new ServerTest(4200);
         //ClientTest clientTest = new ClientTest(4200, "localhost", "Grom1");
-        //launch(args);
+        launch(args);
         /*ServerTest serverTest = new ServerTest(4200);
         ClientTest clientTest = new ClientTest(4200, "192.168.107.109", "Grom1");
 

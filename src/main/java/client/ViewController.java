@@ -16,6 +16,7 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 
 public class ViewController implements Initializable {
 
@@ -36,25 +37,38 @@ public class ViewController implements Initializable {
 
     @FXML
     public void handlePlayAction(ActionEvent e) {
-        Parent root = null;
-        Stage stage = new Stage();
         if(!username.equals(null) && !port.equals(null) && !port.equals(null)) {
+            openGameStage(e);
             try {
-                root = FXMLLoader.load(getClass().getResource("/Game.fxml"));
-                stage.setTitle("Gods of Storms");
-                stage.setScene(new Scene(root));
-                stage.setResizable(false);
-                stage.initStyle(StageStyle.UNDECORATED);
-                stage.show();
-                ((Node) (e.getSource())).getScene().getWindow().hide();
-            } catch (IOException e1) {
-                e1.printStackTrace();
+                TimeUnit.SECONDS.sleep(15);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
             }
+            System.out.println(1);
+            //client = new ClientTest(4200, "192.168.1.223", "Noa");
             client = new ClientTest(Integer.parseInt(port.getText()), ip.getText(), username.getText());
+            System.out.println(2);
             myName.setText(client.getPlayerData().getName());
+            enemyName.setText(client.getPlayerData().getOpponent().getName());
+            System.out.println(3);
         }
     }
 
+    public void openGameStage(ActionEvent e){
+        Parent root = null;
+        Stage stage = new Stage();
+        try {
+            root = FXMLLoader.load(getClass().getResource("/Game.fxml"));
+            stage.setTitle("Gods of Storms");
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.show();
+            ((Node) (e.getSource())).getScene().getWindow().hide();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

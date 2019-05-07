@@ -26,13 +26,9 @@ public class ClientTest implements Runnable{
 
     public void connectToServer(){
         try {
-            System.out.println(4);
             socket = new Socket(host, port);
-            System.out.println(5);
             sendPlayerData(socket, playerData);
-            System.out.println(6);
             readGameData(socket);
-            System.out.println(7);
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -124,9 +120,7 @@ public class ClientTest implements Runnable{
         connectToServer();
         while (running){
             sendPlayerData(socket, playerData);
-            System.out.println(8);
             readGameData(socket);
-            System.out.println(9);
         }
     }
 }

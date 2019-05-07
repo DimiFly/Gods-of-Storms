@@ -36,8 +36,10 @@ public class Main extends Application {
     }
     public static void main(String[] args) {
         //ServerTest serverTest = new ServerTest(4200);
+        Thread thread = new Thread(new ServerTest(4200));
+        thread.start();
         //ClientTest clientTest = new ClientTest(4200, "localhost", "Grom1");
-        launch(args);
+        //launch(args);
 
     }
 }

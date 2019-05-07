@@ -9,6 +9,7 @@ public class Card implements Serializable {
     private int health;
     private int damage;
     private boolean inUse;
+    private CardCoordinates coordinates;
 
     public Card(String name, int cost, int health, int damage) {
         this.name = name;
@@ -16,6 +17,7 @@ public class Card implements Serializable {
         this.health = health;
         this.damage = damage;
         this.inUse = false;
+        coordinates = new CardCoordinates(0,0);
     }
 
     public String getName() {
@@ -56,5 +58,13 @@ public class Card implements Serializable {
 
     public void setInUse(boolean inUse) {
         this.inUse = inUse;
+    }
+
+    public CardCoordinates getCoordinates() {
+        return coordinates;
+    }
+
+    public void setCoordinates(CardCoordinates coordinates) {
+        this.coordinates = coordinates;
     }
 }

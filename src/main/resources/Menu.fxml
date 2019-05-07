@@ -44,7 +44,7 @@
             <Insets right="20.0" />
          </GridPane.margin>
       </Label>
-      <TextField id="textfield" fx:id="ip" styleClass="textfield" stylesheets="@menu_stylesheet.css" GridPane.columnIndex="1" GridPane.rowIndex="3">
+      <TextField id="textfield" fx:id="ip" styleClass="textfield" stylesheets="@menu_stylesheet.css" text="localhost" GridPane.columnIndex="1" GridPane.rowIndex="3">
          <font>
             <Font name="Baskerville Old Face" size="16.0" />
          </font>
@@ -57,7 +57,7 @@
             <Insets right="20.0" />
          </GridPane.margin>
       </Label>
-      <TextField id="textfield" fx:id="port" styleClass="textfield" stylesheets="@menu_stylesheet.css" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <TextField id="textfield" fx:id="port" styleClass="textfield" stylesheets="@menu_stylesheet.css" text="4200" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <font>
             <Font name="Baskerville Old Face" size="16.0" />
          </font>

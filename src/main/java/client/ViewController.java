@@ -55,7 +55,7 @@ public class ViewController implements Initializable {
                         stage.setTitle("Gods of Storms");
                         stage.setScene(new Scene(root));
                         stage.setResizable(false);
-                        stage.initStyle(StageStyle.UNDECORATED);
+                        //stage.initStyle(StageStyle.UNDECORATED);
                         stage.show();
                     } catch (IOException e1) {
                         e1.printStackTrace();

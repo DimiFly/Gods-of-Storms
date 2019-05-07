@@ -61,13 +61,6 @@ public class ClientTest implements Runnable{
             } else {
                 playerData = gameData.getPlayers().get(1);
             }
-            if(playerData.getOpponent() != null) {
-                System.out.println("Your opponent: " + playerData.getOpponent().getName());
-                System.out.println("Your deck: ");
-                for (int i = 0; i < playerData.getDeck().size(); i++) {
-                    System.out.println(playerData.getDeck().get(i).getName());
-                }
-            }
         } catch (Exception e) {
             disconnectFromServer();
         }

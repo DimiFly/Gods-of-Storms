@@ -83,17 +83,11 @@ public class ServerTest implements Runnable {
                     }
                 } else {
                     readData(players.get(0));
+                    sendData(players.get(0), gameData);
+                    sendData(players.get(1), gameData);
                     readData(players.get(1));
                     sendData(players.get(0), gameData);
                     sendData(players.get(1), gameData);
-                    System.out.println(gameData.getPlayers().get(0).getName() + "'s cards: ");
-                    for (int i = 0; i < gameData.getPlayers().get(0).getDeck().size(); i++) {
-                        System.out.println(gameData.getPlayers().get(0).getDeck().get(i).getName());
-                    }
-                    System.out.println(gameData.getPlayers().get(1).getName() + "'s cards: ");
-                    for (int i = 0; i < gameData.getPlayers().get(1).getDeck().size(); i++) {
-                        System.out.println(gameData.getPlayers().get(1).getDeck().get(i).getName());
-                    }
                 }
             }
         } catch (Exception e) {

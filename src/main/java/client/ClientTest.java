@@ -21,7 +21,6 @@ public class ClientTest implements Runnable{
         this.host = host;
         playerData = new PlayerData(name);
         running = false;
-        run();
     }
 
     public void connectToServer(){
@@ -49,7 +48,7 @@ public class ClientTest implements Runnable{
             ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
             outputStream.writeObject(playerData);
         } catch (IOException e) {
-            e.printStackTrace();
+            disconnectFromServer();
         }
     }
 
@@ -70,7 +69,7 @@ public class ClientTest implements Runnable{
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            disconnectFromServer();
         }
     }
 

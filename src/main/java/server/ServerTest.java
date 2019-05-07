@@ -20,7 +20,6 @@ public class ServerTest implements Runnable {
         this.running = false;
         this.gameStarted = false;
         gameData = new GameData();
-        start();
     }
 
     public Socket waitForConnection(ServerSocket serverSocket) {
@@ -102,7 +101,4 @@ public class ServerTest implements Runnable {
         }
     }
 
-    public void start(){
-        run();
-    }
 }

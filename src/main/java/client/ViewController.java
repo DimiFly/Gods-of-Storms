@@ -21,35 +21,20 @@ import java.util.concurrent.TimeUnit;
 
 public class ViewController implements Initializable {
 
-    private ClientTest client;
-
     @FXML
     private TextField username;
     @FXML
     private TextField port;
     @FXML
     private TextField ip;
-    @FXML
-    private Label myName;
-    @FXML
-    private Label enemyName;
-    @FXML
-    private Canvas canvas;
 
     @FXML
     public void handlePlayAction(ActionEvent e) {
         final Node node = (Node) e.getSource();
         Platform.runLater(() -> {
                     if (!username.equals("") && !port.equals("") && !port.equals("")) {
-                        //openGameStage();
+                        openGameStage();
                         node.getScene().getWindow().hide();
-                        System.out.println(1);
-                        //client = new ClientTest(4200, "192.168.1.223", "Noa");
-                        client = new ClientTest(Integer.parseInt(port.getText()), ip.getText(), username.getText());
-                        System.out.println(2);
-                        myName.setText(client.getPlayerData().getName());
-                        enemyName.setText(client.getPlayerData().getOpponent().getName());
-                        System.out.println(3);
                     }
 
                 }
@@ -59,9 +44,14 @@ public class ViewController implements Initializable {
     public void openGameStage() {
         Platform.runLater(() -> {
                     Parent root = null;
-                    Stage stage = new Stage();
                     try {
-                        root = FXMLLoader.load(getClass().getResource("/Game.fxml"));
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Game.fxml"));
+                        root = loader.load();
+                        System.out.println(ip.getText());
+                        GameController gameController = loader.getController();
+                        gameController.setLoginData(username.getText(), ip.getText(), Integer.parseInt(port.getText()));
+                        Stage stage = new Stage();
+
                         stage.setTitle("Gods of Storms");
                         stage.setScene(new Scene(root));
                         stage.setResizable(false);

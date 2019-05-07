@@ -9,6 +9,27 @@
     -fx-border-color: #AA0000;
     -fx-border-style: none solid solid solid;
 }
-.button{
 
+#myHummus{
+    -fx-border-width: 3px;
+    -fx-border-color: #AA0000;
+    -fx-border-style: solid none solid solid;
+}
+
+#myHummusNum{
+    -fx-border-width: 3px;
+    -fx-border-color: #AA0000;
+    -fx-border-style: solid solid solid none;
+}
+
+#enemyHummus{
+    -fx-border-width: 3px;
+    -fx-border-color: #AA0000;
+    -fx-border-style: none none solid solid;
+}
+
+#enemyHummusNum{
+    -fx-border-width: 3px;
+    -fx-border-color: #AA0000;
+    -fx-border-style: none solid solid none;
 }

@@ -21,7 +21,7 @@
     <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Canvas fx:id="canvas" height="520.0" width="1000.0" GridPane.rowIndex="2" />
+      <Canvas fx:id="canvas" height="520.0" onMouseReleased="#handleCanvasClicked" width="1000.0" GridPane.rowIndex="2" />
       <Label id="enemy" fx:id="enemyName" alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="400.0" stylesheets="@game_stylesheet.css" text="Enemy Name" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
          <font>
             <Font name="Baskerville Old Face" size="25.0" />

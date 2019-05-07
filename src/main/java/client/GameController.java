@@ -1,6 +1,7 @@
 package client;
 
 import game.Card;
+import game.CardCoordinates;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -28,12 +29,12 @@ public class GameController implements Initializable {
         enemyName.setText(client.getPlayerData().getOpponent().getName());
         double counter = 20;
         drawTable();
-        for(Card c : client.getPlayerData().getDeck()){
+        for(Card c : client.getPlayerData().getHand()){
             drawCard(c, counter, 420);
             counter += 70;
         }
-        if (e.getY() >= 420) {
-
+        if(e.getX() >= 800 && e.getY() >= 420) {
+            client.getPlayerData().pullCard();
         }
     }
 
@@ -45,6 +46,7 @@ public class GameController implements Initializable {
     }
 
     public void drawCard(Card card, double x, double y){
+        card.setCoordinates(new CardCoordinates(x,y));
         String[] name = card.getName().split(",");
         gc.setFill(Color.WHITE);
         gc.fillRect(x, y, 60, 80);

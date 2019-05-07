@@ -1,5 +1,6 @@
 package client;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,36 +38,43 @@ public class ViewController implements Initializable {
 
     @FXML
     public void handlePlayAction(ActionEvent e) {
-        if(!username.equals(null) && !port.equals(null) && !port.equals(null)) {
-            ((Node) (e.getSource())).getScene().getWindow().hide();
-            try {
-                TimeUnit.SECONDS.sleep(15);
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
+        final Node node = (Node) e.getSource();
+        Platform.runLater(() -> {
+                if(!username.equals("") && !port.equals("") && !port.equals("")) {
+                    //openGameStage();
+                    node.getScene().getWindow().hide();
+                    System.out.println(1);
+                    //client = new ClientTest(4200, "192.168.1.223", "Noa");
+                    client = new ClientTest(Integer.parseInt(port.getText()), ip.getText(), username.getText());
+                    System.out.println(2);
+                    myName.setText(client.getPlayerData().getName());
+                    enemyName.setText(client.getPlayerData().getOpponent().getName());
+                    System.out.println(3);
             }
-            System.out.println(1);
-            //client = new ClientTest(4200, "192.168.1.223", "Noa");
-            client = new ClientTest(Integer.parseInt(port.getText()), ip.getText(), username.getText());
-            System.out.println(2);
-            myName.setText(client.getPlayerData().getName());
-            enemyName.setText(client.getPlayerData().getOpponent().getName());
-            System.out.println(3);
+
         }
+        );
     }
 
     public void openGameStage(){
-        Parent root = null;
-        Stage stage = new Stage();
-        try {
-            root = FXMLLoader.load(getClass().getResource("/Game.fxml"));
-            stage.setTitle("Gods of Storms");
-            stage.setScene(new Scene(root));
-            stage.setResizable(false);
-            stage.initStyle(StageStyle.UNDECORATED);
-            stage.show();
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
+        Platform.runLater( new Runnable() {
+                    @Override
+                    public void run() {
+                        Parent root = null;
+                        Stage stage = new Stage();
+                        try {
+                            root = FXMLLoader.load(getClass().getResource("/Game.fxml"));
+                            stage.setTitle("Gods of Storms");
+                            stage.setScene(new Scene(root));
+                            stage.setResizable(false);
+                            stage.initStyle(StageStyle.UNDECORATED);
+                            stage.show();
+                        } catch (IOException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+                }
+        );
     }
 
     @Override

@@ -47,6 +47,7 @@ public class ClientTest implements Runnable{
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
             outputStream.writeObject(playerData);
+            outputStream.flush();
         } catch (IOException e) {
             disconnectFromServer();
         }
@@ -55,12 +56,7 @@ public class ClientTest implements Runnable{
     public void readGameData(Socket socket){
         try {
             ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
-            gameData = (GameData) inputStream.readObject();
-            if(gameData.getPlayers().get(0).getName().equals(playerData.getName())){
-                playerData = gameData.getPlayers().get(0);
-            } else {
-                playerData = gameData.getPlayers().get(1);
-            }
+            playerData = (PlayerData) inputStream.readObject();
         } catch (Exception e) {
             disconnectFromServer();
         }
@@ -111,7 +107,12 @@ public class ClientTest implements Runnable{
         running = true;
         connectToServer();
         while (running){
-            sendPlayerData(socket, playerData);
+            while (!playerData.isStarted()) {
+                sendPlayerData(socket, playerData);
+                readGameData(socket);
+            }
+            //sendPlayerData(socket, playerData);
+            System.out.println("Read...");
             readGameData(socket);
         }
     }

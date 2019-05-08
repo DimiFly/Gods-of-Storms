@@ -12,6 +12,7 @@ public class PlayerData implements Serializable {
     private ArrayList<Card> hand;
     private ArrayList<Card> playedCards;
     private PlayerData opponent;
+    private boolean started;
 
     public PlayerData(String name) {
         this.name = name;
@@ -19,6 +20,7 @@ public class PlayerData implements Serializable {
         this.deck = new ArrayList<Card>();
         this.hand = new ArrayList<Card>();
         this.playedCards = new ArrayList<Card>();
+        started = false;
     }
 
     public void pullCard() {
@@ -31,6 +33,10 @@ public class PlayerData implements Serializable {
     public void playCard(Card card) {
         playedCards.add(card);
         hand.remove(card);
+    }
+
+    public void attack(Card attacker, Card attacked){
+        attacked.setHealth(attacked.getHealth() - attacked.getDamage());
     }
 
     public String getName() {
@@ -79,5 +85,13 @@ public class PlayerData implements Serializable {
 
     public void setOpponent(PlayerData opponent) {
         this.opponent = opponent;
+    }
+
+    public boolean isStarted() {
+        return started;
+    }
+
+    public void setStarted(boolean started) {
+        this.started = started;
     }
 }

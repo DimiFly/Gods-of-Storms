@@ -28,7 +28,7 @@ public class ServerTest implements Runnable {
             PlayerData playerData = readData(socket);
             System.out.println("Player connected: " + playerData.getName());
             gameData.getPlayers().add(playerData);
-            sendData(socket, gameData);
+            sendData(socket, playerData);
             return socket;
         } catch (IOException e) {
             e.printStackTrace();
@@ -46,10 +46,11 @@ public class ServerTest implements Runnable {
         return null;
     }
 
-    public void sendData(Socket socket, GameData gameData){
+    public void sendData(Socket socket, PlayerData playerData){
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
-            outputStream.writeObject(gameData);
+            outputStream.writeObject(playerData);
+            outputStream.flush();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -62,6 +63,7 @@ public class ServerTest implements Runnable {
     @Override
     public void run() {
         running = true;
+        int counter = 0;
 
         try {
             ServerSocket serverSocket = new ServerSocket(port);
@@ -75,19 +77,39 @@ public class ServerTest implements Runnable {
                         gameData.drawCards();
                         gameData.getPlayers().get(0).setOpponent(gameData.getPlayers().get(1));
                         gameData.getPlayers().get(1).setOpponent(gameData.getPlayers().get(0));
-                        readData(players.get(0));
-                        readData(players.get(1));
-                        sendData(players.get(0), gameData);
-                        sendData(players.get(1), gameData);
+                        gameData.getPlayers().set(0, readData(players.get(0)));
+                        gameData.getPlayers().set(1, readData(players.get(1)));
+                        sendData(players.get(0), gameData.getPlayers().get(0));
+                        sendData(players.get(1), gameData.getPlayers().get(1));
                         gameStarted = true;
+                        gameData.getPlayers().get(0).setStarted(true);
+                        gameData.getPlayers().get(1).setStarted(true);
+                        System.out.println("Set true");
                     }
                 } else {
-                    readData(players.get(0));
-                    sendData(players.get(0), gameData);
-                    sendData(players.get(1), gameData);
-                    readData(players.get(1));
-                    sendData(players.get(0), gameData);
-                    sendData(players.get(1), gameData);
+                    /*
+                    Thread.sleep(500);
+                    gameData.getPlayers().set(0, readData(players.get(0)));
+                    gameData.getPlayers().set(1, readData(players.get(1)));
+                    System.out.println(gameData.getPlayers().get(0).getDeck().get(1).getName());
+                    gameData.getPlayers().get(0).setOpponent(gameData.getPlayers().get(1));
+                    gameData.getPlayers().get(1).setOpponent(gameData.getPlayers().get(0));
+                    sendData(players.get(0), gameData.getPlayers().get(0));
+                    sendData(players.get(1), gameData.getPlayers().get(1));*/
+                    System.out.println("B4 Send...");
+                    sendData(players.get(counter), gameData.getPlayers().get(counter));
+                    System.out.println("Send...");
+                    gameData.getPlayers().set(counter, readData(players.get(counter)));
+                    System.out.println("Get...");
+                    if(counter == 0) {
+                        gameData.getPlayers().get(1).setOpponent(gameData.getPlayers().get(0));
+                        sendData(players.get(1), gameData.getPlayers().get(1));
+                        counter = 1;
+                    } else {
+                        gameData.getPlayers().get(0).setOpponent(gameData.getPlayers().get(1));
+                        sendData(players.get(0), gameData.getPlayers().get(0));
+                        counter = 0;
+                    }
                 }
             }
         } catch (Exception e) {

@@ -2,6 +2,7 @@ package client;
 
 import game.Card;
 import game.CardCoordinates;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -19,30 +20,38 @@ public class GameController implements Initializable {
     private GraphicsContext gc;
 
     @FXML
-    private Label myName, enemyName;
+    private Label myName, enemyName, myHummus, enemyHummus;
 
     @FXML
     private Canvas canvas;
 
     @FXML
     public void handleCanvasClicked(MouseEvent e) {
+        gc.clearRect(0,0,1000,520);
         enemyName.setText(client.getPlayerData().getOpponent().getName());
-        double counter = 20;
+        if(client.getPlayerData().getDeck().size() != 0) {
+            if (e.getX() >= 800 && e.getY() >= 420) {
+                client.getPlayerData().pullCard();
+            }
+        }
         drawTable();
+        double x = 20;
         for(Card c : client.getPlayerData().getHand()){
-            drawCard(c, counter, 420);
-            counter += 70;
+            drawCard(c, x, 420);
+            x += 70;
         }
-        if(e.getX() >= 800 && e.getY() >= 420) {
-            client.getPlayerData().pullCard();
-        }
+        client.sendPlayerData(client.getSocket(), client.getPlayerData());
+        System.out.println(client.getPlayerData().getOpponent().getHand().size() + "/" + client.getPlayerData().getOpponent().getDeck().size());
     }
 
     public void setLoginData(String name, String ip, int port){
-        client = new ClientTest(port, ip, name);
-        Thread inputThread = new Thread(client);
-        inputThread.start();
-        myName.setText(client.getPlayerData().getName());
+        Platform.runLater(() -> {
+            client = new ClientTest(port, ip, name);
+            System.out.println(client.getPlayerData().getName());
+            Thread inputThread = new Thread(client);
+            inputThread.start();
+            myName.setText(client.getPlayerData().getName());
+        });
     }
 
     public void drawCard(Card card, double x, double y){
@@ -64,7 +73,6 @@ public class GameController implements Initializable {
     }
 
     public void drawTable(){
-        gc.clearRect(0,0,1000,520);
         gc.setFill(Color.BROWN);
         gc.fillRect(100, 100, 800, 320);
 
@@ -77,11 +85,31 @@ public class GameController implements Initializable {
             drawOpponentHand(counter, 0);
             counter += 70;
         }
+        myHummus.setText(client.getPlayerData().getHummus() + "");
+        enemyHummus.setText(client.getPlayerData().getOpponent().getHummus() + "");
+        drawOpponentTableCards();
+        drawMyTableCards();
     }
 
     public void drawOpponentHand(double x, double y){
         gc.setFill(Color.WHITE);
         gc.fillRect(x, y, 60, 80);
+    }
+
+    public void drawOpponentTableCards(){
+        double counter = 150;
+        for(Card c : client.getPlayerData().getPlayedCards()){
+            drawCard(c, counter, 150);
+            counter += 70;
+        }
+    }
+
+    public void drawMyTableCards() {
+        double counter = 150;
+        for(Card c : client.getPlayerData().getOpponent().getPlayedCards()){
+            drawCard(c, counter, 290);
+            counter += 70;
+        }
     }
 
     @Override

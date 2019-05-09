@@ -110,7 +110,7 @@ public class GameData implements Serializable {
             }
         }
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 30; i++) {
             Random r = new Random();
             int index = r.nextInt(80);
             if(!allCards.get(index).isInUse()) {

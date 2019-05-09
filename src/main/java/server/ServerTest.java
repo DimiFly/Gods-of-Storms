@@ -86,6 +86,7 @@ public class ServerTest implements Runnable {
                         gameData.getPlayers().set(1, readData(players.get(1)));
                         gameData.getPlayers().get(0).setStarted(true);
                         gameData.getPlayers().get(1).setStarted(true);
+                        gameData.getPlayers().get(0).setMyTurn(true);
                         sendData(players.get(0), gameData.getPlayers().get(0));
                         sendData(players.get(1), gameData.getPlayers().get(1));
                         System.out.println(readData(players.get(0)).isStarted());
@@ -104,17 +105,25 @@ public class ServerTest implements Runnable {
                     if(counter == 0) {
                         gameData.getPlayers().set(0, readData(players.get(0)));
                         gameData.getPlayers().get(1).setOpponent(gameData.getPlayers().get(0));
+                        gameData.getPlayers().get(0).setMyTurn(false);
+                        gameData.getPlayers().get(1).setMyTurn(true);
+                        if(gameData.getPlayers().get(0).getHummus() < 10) {
+                            gameData.getPlayers().get(0).setHummus(gameData.getPlayers().get(0).getHummus()+1);
+                        }
                         sendData(players.get(1), gameData.getPlayers().get(1));
                         sendData(players.get(0), gameData.getPlayers().get(0));
                         counter = 1;
-                        System.out.println(counter);
                     } else {
                         gameData.getPlayers().set(1, readData(players.get(1)));
                         gameData.getPlayers().get(0).setOpponent(gameData.getPlayers().get(1));
+                        gameData.getPlayers().get(1).setMyTurn(false);
+                        gameData.getPlayers().get(0).setMyTurn(true);
+                        if(gameData.getPlayers().get(1).getHummus() < 10) {
+                            gameData.getPlayers().get(1).setHummus(gameData.getPlayers().get(1).getHummus()+1);
+                        }
                         sendData(players.get(0), gameData.getPlayers().get(0));
                         sendData(players.get(1), gameData.getPlayers().get(1));
                         counter = 0;
-                        System.out.println(counter);
                     }
                 }
             }

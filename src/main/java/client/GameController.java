@@ -3,7 +3,6 @@ package client;
 import game.Card;
 import game.CardCoordinates;
 import javafx.application.Platform;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -26,6 +25,7 @@ public class GameController implements Initializable {
     private boolean canAttack;
     private Card attackingCard;
 
+
     @FXML
     private Label myName, enemyName, myHummus, enemyHummus;
 
@@ -36,40 +36,47 @@ public class GameController implements Initializable {
     public void handleCanvasClicked(MouseEvent e) {
         System.out.println(e.getX() + " " + e.getY());
         if(start) {
-            gc.clearRect(0, 0, 1000, 520);
-            drawTable();
-            for(Card c : coordinates.keySet()) {
-                if (coordinates.get(c).getY() >= 420 && coordinates.get(c).getY() <= 500) {
-                    for(Card card : client.getPlayerData().getHand()) {
-                        if(coordinates.get(card).getX() < e.getX() && coordinates.get(card).getX() + 60 > e.getX()){
-                            client.getPlayerData().getHand().remove(card);
-                            client.getPlayerData().getPlayedCards().add(card);
-                        }
-                    }
-                }
-                if (coordinates.get(c).getY() >= 290 && coordinates.get(c).getY() <= 370) {
-                    for(Card card : client.getPlayerData().getPlayedCards()) {
-                        if(coordinates.get(card).getX() < e.getX() && coordinates.get(card).getX() + 60 > e.getX()){
-                            System.out.println("Green");
-                            gc.setStroke(Color.GREEN);
-                            gc.strokeRect(coordinates.get(card).getX(), coordinates.get(card).getY(), 60, 80);
-                            canAttack = true;
-                            attackingCard = card;
-                        }
-                    }
-                }
-                if(canAttack) {
-                    if (coordinates.get(c).getY() >= 150 && coordinates.get(c).getY() <= 230) {
-                        for (Card card : client.getPlayerData().getOpponent().getPlayedCards()) {
+            if (client.getPlayerData().isMyTurn()) {
+                gc.clearRect(0, 0, 1000, 520);
+                drawTable();
+                for (Card c : coordinates.keySet()) {
+                    if (coordinates.get(c).getY() >= 420 && coordinates.get(c).getY() <= 500) {
+                        for (Card card : client.getPlayerData().getHand()) {
                             if (coordinates.get(card).getX() < e.getX() && coordinates.get(card).getX() + 60 > e.getX()) {
-                                client.getPlayerData().attack(attackingCard, card);
-                                canAttack = false;
+                                if(client.getPlayerData().getHummus() >= card.getCost()) {
+                                    client.getPlayerData().setHummus(client.getPlayerData().getHummus() - card.getCost());
+                                    client.getPlayerData().getHand().remove(card);
+                                    client.getPlayerData().getPlayedCards().add(card);
+                                }
+                            }
+                        }
+                    }
+                    if (coordinates.get(c).getY() >= 290 && coordinates.get(c).getY() <= 370) {
+                        for (Card card : client.getPlayerData().getPlayedCards()) {
+                            if (coordinates.get(card).getX() < e.getX() && coordinates.get(card).getX() + 60 > e.getX()) {
+                                System.out.println("Green");
+                                gc.setStroke(Color.GREEN);
+                                gc.strokeRect(coordinates.get(card).getX(), coordinates.get(card).getY(), 60, 80);
+                                canAttack = true;
+                                attackingCard = card;
+                            }
+                        }
+                    }
+                    if (canAttack) {
+                        if (coordinates.get(c).getY() >= 150 && coordinates.get(c).getY() <= 230) {
+                            for (Card card : client.getPlayerData().getOpponent().getPlayedCards()) {
+                                if (coordinates.get(card).getX() < e.getX() && coordinates.get(card).getX() + 60 > e.getX()) {
+                                    client.getPlayerData().attack(attackingCard, card);
+                                    canAttack = false;
+                                }
                             }
                         }
                     }
                 }
+                client.sendPlayerData(client.getSocket(), client.getPlayerData());
+            } else {
+                System.out.println("Not my turn");
             }
-            client.sendPlayerData(client.getSocket(), client.getPlayerData());
         }
     }
 
@@ -82,12 +89,14 @@ public class GameController implements Initializable {
                 enemyName.setText(client.getPlayerData().getOpponent().getName());
                 break;
             case D:
-                if(start) {
+                if(start && client.getPlayerData().isMyTurn()) {
                     if (client.getPlayerData().getDeck().size() != 0) {
                         client.getPlayerData().pullCard();
                         client.sendPlayerData(client.getSocket(), client.getPlayerData());
                     }
                     drawTable();
+                } else {
+                    System.out.println("Not my turn");
                 }
                 break;
         }

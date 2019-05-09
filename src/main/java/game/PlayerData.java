@@ -12,7 +12,7 @@ public class PlayerData implements Serializable {
     private ArrayList<Card> hand;
     private ArrayList<Card> playedCards;
     private PlayerData opponent;
-    private boolean started;
+    private boolean started, myTurn;
 
     public PlayerData(String name) {
         this.name = name;
@@ -21,6 +21,7 @@ public class PlayerData implements Serializable {
         this.hand = new ArrayList<Card>();
         this.playedCards = new ArrayList<Card>();
         started = false;
+        myTurn = false;
     }
 
     public void pullCard() {
@@ -93,5 +94,13 @@ public class PlayerData implements Serializable {
 
     public void setStarted(boolean started) {
         this.started = started;
+    }
+
+    public boolean isMyTurn() {
+        return myTurn;
+    }
+
+    public void setMyTurn(boolean myTurn) {
+        this.myTurn = myTurn;
     }
 }

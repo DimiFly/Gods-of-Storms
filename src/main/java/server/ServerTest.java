@@ -74,41 +74,47 @@ public class ServerTest implements Runnable {
                         players.add(waitForConnection(serverSocket));
                     }
                     if (gameData.getPlayers().size() == 2) {
+                        gameData.getPlayers().set(0, readData(players.get(0)));
+                        gameData.getPlayers().set(1, readData(players.get(1)));
                         gameData.drawCards();
                         gameData.getPlayers().get(0).setOpponent(gameData.getPlayers().get(1));
                         gameData.getPlayers().get(1).setOpponent(gameData.getPlayers().get(0));
-                        gameData.getPlayers().set(0, readData(players.get(0)));
-                        gameData.getPlayers().set(1, readData(players.get(1)));
                         sendData(players.get(0), gameData.getPlayers().get(0));
                         sendData(players.get(1), gameData.getPlayers().get(1));
                         gameStarted = true;
+                        gameData.getPlayers().set(0, readData(players.get(0)));
+                        gameData.getPlayers().set(1, readData(players.get(1)));
                         gameData.getPlayers().get(0).setStarted(true);
                         gameData.getPlayers().get(1).setStarted(true);
-                        System.out.println("Set true");
+                        sendData(players.get(0), gameData.getPlayers().get(0));
+                        sendData(players.get(1), gameData.getPlayers().get(1));
+                        System.out.println(readData(players.get(0)).isStarted());
+                        System.out.println("Game started");
                     }
                 } else {
-                    /*
+/*
                     Thread.sleep(500);
                     gameData.getPlayers().set(0, readData(players.get(0)));
                     gameData.getPlayers().set(1, readData(players.get(1)));
-                    System.out.println(gameData.getPlayers().get(0).getDeck().get(1).getName());
                     gameData.getPlayers().get(0).setOpponent(gameData.getPlayers().get(1));
                     gameData.getPlayers().get(1).setOpponent(gameData.getPlayers().get(0));
                     sendData(players.get(0), gameData.getPlayers().get(0));
-                    sendData(players.get(1), gameData.getPlayers().get(1));*/
-                    System.out.println("B4 Send...");
-                    sendData(players.get(counter), gameData.getPlayers().get(counter));
-                    System.out.println("Send...");
-                    gameData.getPlayers().set(counter, readData(players.get(counter)));
-                    System.out.println("Get...");
+                    sendData(players.get(1), gameData.getPlayers().get(1));
+*/
                     if(counter == 0) {
+                        gameData.getPlayers().set(0, readData(players.get(0)));
                         gameData.getPlayers().get(1).setOpponent(gameData.getPlayers().get(0));
                         sendData(players.get(1), gameData.getPlayers().get(1));
+                        sendData(players.get(0), gameData.getPlayers().get(0));
                         counter = 1;
+                        System.out.println(counter);
                     } else {
+                        gameData.getPlayers().set(1, readData(players.get(1)));
                         gameData.getPlayers().get(0).setOpponent(gameData.getPlayers().get(1));
                         sendData(players.get(0), gameData.getPlayers().get(0));
+                        sendData(players.get(1), gameData.getPlayers().get(1));
                         counter = 0;
+                        System.out.println(counter);
                     }
                 }
             }

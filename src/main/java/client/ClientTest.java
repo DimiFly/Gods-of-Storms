@@ -53,13 +53,13 @@ public class ClientTest implements Runnable{
         }
     }
 
-    public void readGameData(Socket socket){
+    public PlayerData readGameData(Socket socket){
         try {
             ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
-            playerData = (PlayerData) inputStream.readObject();
+            return (PlayerData) inputStream.readObject();
         } catch (Exception e) {
             disconnectFromServer();
-        }
+        } return null;
     }
 
     public int getPort() {
@@ -109,11 +109,16 @@ public class ClientTest implements Runnable{
         while (running){
             while (!playerData.isStarted()) {
                 sendPlayerData(socket, playerData);
-                readGameData(socket);
+                playerData = readGameData(socket);
+                System.out.println("Not started");
             }
             //sendPlayerData(socket, playerData);
+            System.out.println(playerData.getOpponent().getName());
             System.out.println("Read...");
-            readGameData(socket);
+            PlayerData data;
+            while ((data = readGameData(socket)) != null) {
+                playerData = data;
+            }
         }
     }
 }
